@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software and the accompanying paper."
+title: "Elliptic units for complex cubic fields"
+abstract: >-
+  Sage code evaluating a certified smoothed elliptic gamma function attached to
+  a wedge of hyperplanes, producing conjectural elliptic units generating ray
+  class fields of complex cubic fields.
+type: software
+authors:
+  - family-names: Bergeron
+    given-names: Nicolas
+    affiliation: "École normale supérieure, Paris"
+  - family-names: Charollois
+    given-names: Pierre
+    affiliation: "Sorbonne Université, Paris"
+  - family-names: Garcia
+    given-names: Luis E.
+    affiliation: "University College London"
+license: GPL-3.0
+repository-code: "https://github.com/CHANGEME/elliptic-units-cubic"
+preferred-citation:
+  type: article
+  title: "Elliptic units for complex cubic fields"
+  authors:
+    - family-names: Bergeron
+      given-names: Nicolas
+      affiliation: "École normale supérieure, Paris"
+    - family-names: Charollois
+      given-names: Pierre
+      affiliation: "Sorbonne Université, Paris"
+    - family-names: Garcia
+      given-names: Luis E.
+      affiliation: "University College London"
+  year: 2023
+  identifiers:
+    - type: other
+      value: "arXiv:2311.04110"
+      description: "arXiv preprint"
+  url: "https://arxiv.org/abs/2311.04110"
