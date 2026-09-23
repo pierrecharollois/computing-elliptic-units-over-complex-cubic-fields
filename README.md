@@ -64,11 +64,11 @@ sage: for k in range(6):
 ....:     print(EllGammaunit_aa_h(A[0]/q_ff, L))
 ```
 
-The working precision and the truncation bounds are set among the global variables at the top of `BCG_cubic_git.sage`, and `certified_digits` returns the number of decimal digits the truncation error bound guarantees. Reaching 1000 certified digits takes a while, the run time being dominated by the width of the wedge and by the decay rate ρ of the series.
+The working precision and the truncation bounds are set among the global variables at the top of `BCG_cubic_git.sage`, and `certified_digits` returns the number of decimal digits the truncation error bound guarantees. Reaching 1000 certified digits takes a while, the run time being dominated by the width `s` of the wedge and by the decay rate ρ of the series.
 
 ### GP/PARI
 
-`Baby_step_GammaFelder33.gp` evaluates the elliptic gamma function itself, through SL₃(Z) moves and theta cocycle factors; its public interface is `lessnaifGamma(z, TAU, SIGMA, BBd, BDterm)`. `setup108.gp` and `setup23c.gp` each set up one example and run all of its narrow ray classes. The three files must sit in the same directory, and the setup scripts are meant to be run directly:
+`Baby_step_GammaFelder33.gp` evaluates the elliptic gamma function itself, through SL₃(Z) moves and theta cocycle factors; its public interface is `lessnaifGamma(z, TAU, SIGMA, BBd, BDterm)`. The files `setup108.gp` and `setup23c.gp` each set up one example and run all of its narrow ray classes. The three files must sit in the same directory, and the setup scripts are meant to be run directly:
 
 ```
 $ gp -q setup108.gp        # six classes, disc -108, BCG §5.3
