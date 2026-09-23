@@ -4,9 +4,10 @@
 
 This project contains the code used to run the numerical examples of the article [Bergeron, Charollois and García, *Elliptic units for complex cubic fields*](https://arxiv.org/abs/2311.04110).
 
-Let K be a complex cubic field, f an ideal of its ring of integers, and K(f) the narrow ray class field of conductor f. Given a smoothing ideal a and an admissible h, the code evaluates the elliptic gamma value `Gamma_{a,h}(f b^-1)`, a finite product of values of the Felder–Varchenko elliptic gamma function Γ(z, τ, σ) at points of K³. The main conjecture predicts that this complex number is the image of a unit `u_a(f b^-1)` of K(f), that it does not depend on h, and that `u_a(f b^-1)` is the image of `u_a(f)` under the Artin symbol of b. Letting b run through the narrow ray classes, the resulting complex numbers are matched, to 1000 decimal digits, against the roots of a polynomial whose splitting field is K(f).
-
-The evaluation rests on the summation formula of Felder–Varchenko for log Γ(z, τ, σ), whose convergence is slow when τ and σ have small imaginary parts. This is the main bottleneck, and the reason both implementations look for wedges of small width before evaluating.
+Let K be a complex cubic field, f an ideal of its ring of integers, and K(f) the narrow ray class field of conductor f. Given a smoothing ideal a and an admissible base point h in K, the code evaluates the elliptic gamma value `Gamma_{a,h}(f b^-1)`, a finite product of values of the Felder–Varchenko elliptic gamma function Γ(z, τ, σ) at points of K³. The main conjecture predicts that this complex number is the image of a unit `u_a(f b^-1)` of K(f), that it does not depend on h, and that `u_a(f b^-1)` is the image of `u_a(f)` under the Artin symbol of b. Letting b run through the narrow ray class group classes, the resulting complex numbers are matched, to 1000 decimal digits, against the roots of a polynomial whose splitting field is K(f).
+ 
+The evaluation rests on the summation formula of Felder–Varchenko for log Γ(z, τ, σ), whose convergence is slow when τ and σ are close to the real axis.
+This is the main bottleneck, the other being the length 's' of the finite product of the ellitic Gamma values.  These are the two reasons the  implementation looks for   τ and σ away from the real axis, and wedges of small width 's'  before evaluating.
 
 Two independent implementations are provided: a SageMath chain, with a certified truncation bound, and a GP/PARI 2.15.2 chain, faster but working to an empirical accuracy contract. The field K = Q(∛2) is run in both, and the two agree.
 
@@ -40,10 +41,10 @@ sage: load('cubic_field_K_cube_root_2.sage')
 
 The second file sets the global variables describing the example: the field `K`, the conductor `ff` and the smallest positive integer `q_ff` it contains, the smoothing ideal `aa`, an ideal `bb` whose class generates the narrow ray class group, the generator `vareps` of the totally positive units in 1+f and its matrix `Eps`, the roots `yRR` and `yCC` defining the real and complex embeddings, and the orientation matrix `or_matrix`. It prints them, with a few consistency checks.
 
-One then chooses an admissible λ for `L = f b^(-k)` and evaluates:
+One then chooses an admissible λ for `L = f b^(-k)` and evaluates typically as :
 
 ```
-sage: L = ff
+sage: L = ff*bb^(-1)
 sage: A = find_small_width_admissible_vectors(8, L, 30)
 sage: u = EllGammaunit_aa_h(A[0]/q_ff, L)
 sage: certified_digits(u)
