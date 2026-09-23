@@ -51,7 +51,7 @@ sage: certified_digits(u)
 sage: algdep(u, 18)
 ```
 
-`admissible_elements(N, L)` returns all admissible elements in the search box of radius `N`, and `find_small_width_admissible_vectors(N, L, max_width)` keeps those whose wedge has small width, which is what governs the cost of one evaluation. Different rows of `A` give different h and should return the same value, one of the checks the conjecture predicts.
+`admissible_elements(N, L)` returns all admissible elements `h`in the search box of radius `N`, and `find_small_width_admissible_vectors(N, L, max_width)` keeps those whose wedge has small width, which is what governs the cost of one evaluation. Different rows of `A` give different `h` and should return the same value,  as predicted by the conjecture.
 
 `algdep` recognises `u` over Q. The polynomial over K printed in the paper is recovered by factoring that polynomial over K, or directly by a `lindep` of the numbers `β^i u^j`. In the `β^3 = 3` example the coefficients are already rational and `algdep(u, 6)` suffices.
 
