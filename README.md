@@ -36,35 +36,35 @@ Download `BCG_cubic_git.sage` together with the data file of the example you wan
 
 ```
 sage: load('BCG_cubic_git.sage')
-sage: load('cubic_field_K_cube_root_2.sage')
+sage: load('cubic_field_K_disc_-588.sage')
+sage: check_hypotheses()
 ```
 
-The second file sets the global variables describing the example: the field `K`, the conductor `ff` and the smallest positive integer `q_ff` it contains, the smoothing ideal `aa`, an ideal `bb` whose class generates the narrow ray class group, the generator `vareps` of the totally positive units in 1+f and its matrix `Eps`, the roots `yRR` and `yCC` defining the real and complex embeddings, and the orientation matrix `or_matrix`. It prints them, with a few consistency checks.
+The second file sets the global variables describing the example: the field `K`, the conductor `ff` and the smallest positive integer `q_ff` it contains, the smoothing ideal `aa`, an ideal `bb` whose class generates the narrow ray class group, the generator `vareps` of the totally positive units in 1+f and its matrix `Eps`, the roots `yRR` and `yCC` defining the real and complex embeddings, and the orientation matrix `or_matrix`. Each data file selects its complex root explicitly, the root with positive imaginary part for disc −588, the root with negative imaginary part for `β^3 = 7`, the β of the paper. `check_hypotheses()` verifies the hypotheses of the paper on these data and states which half-plane `yCC` lies in.
 
-One then chooses an admissible λ for `L = f b^(-k)` and evaluates typically as :
+One evaluation then takes a few lines:
 
 ```
-sage: L = ff*bb^(-1)
-sage: A = find_small_width_admissible_vectors(8, L, 30)
-sage: u = EllGammaunit_aa_h(A[0]/q_ff, L)
-sage: certified_digits(u)
-sage: algdep(u, 18)
+sage: L = ff
+sage: adm = scan_admissible(10, L, 3)
+sage: N_Ell_Gamma = 14000
+sage: u = EllGammaunit_aa_h(adm/q_ff, L)
+sage: PK = algdep_K(u, 6, certified_digits(u) - 5)
 ```
 
-`admissible_elements(N, L)` returns all admissible elements `h`in the search box of radius `N`, and `find_small_width_admissible_vectors(N, L, max_width)` keeps those whose wedge has small width, which is what governs the cost of one evaluation. Different rows of `A` give different `h` and should return the same value,  as predicted by the conjecture.
+`admissible_elements(N, L)` returns all admissible elements `h`in the search box of radius `N`, and `find_small_width_admissible_vectors(N, L, max_width)` keeps those whose wedge has small width, which is what governs the cost of one evaluation. `scan_admissible(N, L, max_width)` ranks them by cost and returns the cheapest; it prints the five best together with the number of series terms each needs for 1000 decimal digits, which is the value to give to `N_Ell_Gamma` (13019 above, for disc −588 and L = f). Different admissible vectors for the same L give different triples (z, τ, σ), printed as exact elements of K during the evaluation, and the same value `u`, as predicted by the conjecture.
 
-`algdep` recognises `u` over Q. The polynomial over K printed in the paper is recovered by factoring that polynomial over K, or directly by a `lindep` of the numbers `β^i u^j`. In the `β^3 = 3` example the coefficients are already rational and `algdep(u, 6)` suffices.
+`certified_digits(u)` returns the number of decimal digits the truncation error bound guarantees. `algdep_Q(u, n, digits)` recognises `u` over Q, and `algdep_K(u, n, digits)` recovers the polynomial over K printed in the paper, through a `lindep` on the numbers `β^i u^j`. In the `β^3 = 3` example the coefficients are already rational and `algdep_Q(u, 6, digits)` suffices.
 
 The Galois conjugates are obtained by letting b vary:
 
 ```
 sage: for k in range(6):
 ....:     L = ff * bb^(-k)
-....:     A = find_small_width_admissible_vectors(8, L, 30)
-....:     print(EllGammaunit_aa_h(A[0]/q_ff, L))
+....:     print(EllGammaunit_aa_h(scan_admissible(10, L, 3)/q_ff, L))
 ```
 
-The working precision and the truncation bounds are set among the global variables at the top of `BCG_cubic_git.sage`, and `certified_digits` returns the number of decimal digits the truncation error bound guarantees. Reaching 1000 certified digits takes a while, the run time being dominated by the width `s` of the wedge and by the decay rate ρ of the series.
+The working precision `prec`, 3400 bits by default, is set at the top of `BCG_cubic_git.sage`. Reaching 1000 certified digits takes from seconds to minutes per class, the run time being dominated by the width `s` of the wedge, which is the modulus of Felder's paper, and by the decay rate ρ of the series.
 
 ### GP/PARI
 
