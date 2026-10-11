@@ -4,12 +4,12 @@
 
 This project contains the code used to run the numerical examples of the article [Bergeron, Charollois and García, *Elliptic units for complex cubic fields*](https://arxiv.org/abs/2311.04110).
 
-Let K be a complex cubic field, f an ideal of its ring of integers, and K(f) the narrow ray class field of conductor f. Given a smoothing ideal a, a generator b of the narrow ray classgroup and an admissible base point h in K, the code evaluates the elliptic gamma value `Gamma_{a,h}(f b^-k)`, a finite product of values of the Felder–Varchenko elliptic gamma function Γ(z, τ, σ) at points of K³. The main conjecture predicts that this complex number is the image of a unit `u_a(f b^-k)` of K(f), that it does not depend on h, and that `u_a(f b^-k)` is the image of `u_a(f)` under the Artin symbol of b. Letting b run through the narrow ray class group classes, the resulting complex numbers are matched, to 1000 decimal digits, against the roots of a polynomial whose splitting field is K(f).
+Let K be a complex cubic field, f an ideal of its ring of integers, and K(f) the narrow ray class field of conductor f. Given a smoothing ideal a, a generator b of the narrow ray classgroup and an admissible base point h in K, the code evaluates the elliptic gamma value `Gamma_{a,h}(f b^-k)`, a finite product of values of the Felder–Varchenko elliptic gamma function Γ(z, τ, σ) at points of K³. The main conjecture predicts that this complex number is the image of a unit `u_a(f b^(-k))` of K(f), that it does not depend on h, and that `u_a(f b^(-k))` is the image of `u_a(f)` under the Artin symbol of b. Letting b run through the narrow ray class group classes, the resulting complex numbers are matched, to 1000 decimal digits, against the roots of a polynomial whose splitting field is K(f).
  
 The evaluation rests on the summation formula of Felder–Varchenko for log Γ(z, τ, σ), whose convergence is slow when τ and σ are close to the real axis.
 This is the main bottleneck, the other being the length 's' of the finite product of the ellitic Gamma values.  These are the two reasons the  implementation looks for   τ and σ away from the real axis, and wedges of small width 's'  before evaluating.
 
-Two independent implementations are provided: a SageMath chain, with a certified truncation bound, and a GP/PARI 2.15.2 chain, faster but working to an empirical accuracy contract. The field K = Q(∛2) is run in both, and the two agree.
+Two independent implementations are provided: a SageMath implementation, with a certified truncation bound, and a GP/PARI 2.15.2 implementation, faster but working to an empirical accuracy contract. The field K = Q(∛2) is run in both, and the two agree.
 
 ## Results
 
@@ -52,10 +52,9 @@ sage: u = EllGammaunit_aa_h(adm/q_ff, L)
 sage: PK = algdep_K(u, 6, certified_digits(u) - 5)
 ```
 
-`admissible_elements(N, L)` returns all admissible elements `h`in the search box of radius `N`, and `find_small_width_admissible_vectors(N, L, max_width)` keeps those whose wedge has small width, which is what governs the cost of one evaluation. `scan_admissible(N, L, max_width)` ranks them by cost and returns the cheapest; it prints the five best together with the number of series terms each needs for 1000 decimal digits, which is the value to give to `N_Ell_Gamma` (13019 above, for disc −588 and L = f). Different admissible vectors for the same L give different triples (z, τ, σ), printed as exact elements of K during the evaluation, and the same value `u`, as predicted by the conjecture.
+`admissible_elements(N, L)` returns all admissible elements `h`in the search box of radius `N`, and `find_small_width_admissible_vectors(N, L, max_width)` keeps those whose wedge has small width, which is what governs the cost of one evaluation. `scan_admissible(N, L, max_width)` ranks them by cost and returns the cheapest; it prints the five best together with the number of series terms each needs for 1000 decimal digits, which is the value to give to `N_Ell_Gamma` (13019 above, for disc −588 and L = 'ff'). Different admissible vectors for the same L give different triples (z, τ, σ), printed as exact elements of K during the evaluation, and the same value `u`, as predicted by the conjecture.
 
-`certified_digits(u)` returns the number of decimal digits the truncation error bound guarantees. `algdep_Q(u, n, digits)` recognises `u` over Q, and `algdep_K(u, n, digits)` recovers the polynomial over K printed in the paper, through a `lindep` on the numbers `β^i u^j`. In the `β^3 = 3` example the coefficients are already rational and `algdep_Q(u, 6, digits)` suffices.
-
+`certified_digits(u)` returns the number of digits the truncation error bound guarantees. `algdep_Q(u, n, digits)` recognises `u` over Q, and `algdep_K(u, n, digits)` recovers the polynomial over K printed in the paper, through a `lindep` on the numbers `β^i u^j`. 
 The Galois conjugates are obtained by letting b vary:
 
 ```
