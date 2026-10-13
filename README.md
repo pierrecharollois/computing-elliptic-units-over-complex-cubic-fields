@@ -8,7 +8,7 @@ Let K be a complex cubic field, f an ideal of its ring of integers, and K(f) the
 Given a smoothing ideal a, a generator b of the narrow ray classgroup together with an admissible base point h in K, the code evaluates the elliptic gamma value `Gamma_{a,h}(f*b^(-1))`, a finite product of values of the Felder–Varchenko elliptic gamma function Γ(z, τ, σ) at points of K³. The main conjecture predicts that this complex number is the image of a unit `u_a(f*b^(-1))` of K(f), that it does not depend on h, and that `u_a(f*b^(-1))` is the image of `u_a(f)` under the Artin symbol of b. Letting b run through the narrow ray class group classes, the resulting complex numbers are matched, to 1000 decimal digits, against the roots of a polynomial whose splitting field is K(f).
  
 The evaluation rests on the summation formula of Felder–Varchenko for log Γ(z, τ, σ), whose convergence is slow when τ and σ are close to the real axis.
-This is the main bottleneck, the other being the length 's' of the finite product of the ellitic Gamma values.  These are the two reasons the  implementation looks for   τ and σ away from the real axis, and wedges of small width 's'  before evaluating.
+This is the main bottleneck, the other being the length `s` of the finite product of the elliptic Gamma values.  These are the two reasons the  implementation looks for   τ and σ away from the real axis, and wedges of small width 's'  before evaluating.
 
 Two independent implementations are provided: a SageMath implementation, with a certified truncation bound, and a GP/PARI 2.15.2 implementation, faster but working to an empirical accuracy contract. The field K = Q(∛2) is run in both, and the two agree.
 
