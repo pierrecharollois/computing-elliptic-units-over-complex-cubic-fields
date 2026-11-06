@@ -33,10 +33,10 @@ The first one is Dasgupta's original example, the complex cubic field of smalles
 
 ### SageMath
 
-Download `BCG_cubic_git.sage` together with the data file of the example you want to run, and load them in this order from a SageMath session:
+Download `BCG_cubic.sage` together with the data file of the example you want to run, and load them in this order from a SageMath session:
 
 ```
-sage: load('BCG_cubic_git.sage')
+sage: load('BCG_cubic.sage')
 sage: load('cubic_field_K_disc_-588.sage')
 sage: check_hypotheses()
 ```
