@@ -24,6 +24,7 @@ The examples covered are the following.
 | `cubic_field_K_cube_root_7.sage` | `β^3 = 7` | −1323 = −3³·7² | 3 | the ideal of norm 3 | norm 5 | Z/6 | §5.2 |
 | `cubic_field_K_cube_root_3.sage` | `β^3 = 3` | −243 = −3⁵ | 1 | the ideal of norm 3 | norm 5, then norm 2 | Z/2 | §5.1 |
 | `cubic_field_K_cube_root_2.sage` | `β^3 = 2` | −108 = −2²·3³ | 1 | (3) | norm 5 | Z/6, gen. (β) | §5.3 |
+| `cubic_field_K_cube_root_2_f5-2.sage` | `β^3 = 2` | −108 = −2²·3³ | 1 | (5) | norm 11 | Z/12, gen. (β) | §5.3 |
 | `setup108.gp` | `β^3 = 2` | −108 | 1 | (3) | norm 5 | Z/6, gen. (β) | §5.3 |
 | `setup23c.gp` | `β^3 - β + 1 = 0` | −23 | 1 | (5) | norm 7 | Z/4, gen. (2) | §5.4 |
 
@@ -38,10 +39,9 @@ Download `BCG_cubic.sage` together with the data file of the example you want to
 ```
 sage: load('BCG_cubic.sage')
 sage: load('cubic_field_K_disc_-588.sage')
-sage: check_hypotheses()
 ```
 
-The second file sets the global variables describing the example: the field `K`, the conductor `ff` and the smallest positive integer `q_ff` it contains, the smoothing ideal `aa`, an ideal `bb` whose class generates the narrow ray class group, the generator `vareps` of the totally positive units in 1+f and its matrix `Eps`, the roots `yRR` and `yCC` defining the real and complex embeddings, and the orientation matrix `or_matrix`. Each data file selects its complex root explicitly, the root with positive imaginary part for disc −588, the root with negative imaginary part for `β^3 = 7`, the β of the paper. `check_hypotheses()` verifies the hypotheses of the paper on these data and states which half-plane `yCC` lies in.
+The second file sets the global variables describing the example: the field `K`, the conductor `ff` and the smallest positive integer `q_ff` it contains, the smoothing ideal `aa`, an ideal `bb` whose class generates the narrow ray class group, the generator `vareps` of the totally positive units in 1+f and its matrix `Eps`, the roots `yRR` and `yCC` defining the real and complex embeddings, and the orientation matrix `or_matrix`. Each data file selects its complex root explicitly, the root with positive imaginary part for disc −588, the root with negative imaginary part for `β^3 = 7`, the β of the paper.
 
 One evaluation then takes a few lines:
 
@@ -50,7 +50,7 @@ sage: L = ff
 sage: adm = scan_admissible(10, L, 3)
 sage: N_Ell_Gamma = 14000
 sage: u = EllGammaunit_aa_h(adm/q_ff, L)
-sage: PK = algdep_K(u, 6, certified_digits(u) - 5)
+sage: PK = algdep_K(u, 6, certified_digits(u))
 ```
 
 `admissible_elements(N, L)` returns all admissible elements `h`in the search box of radius `N`, and `find_small_width_admissible_vectors(N, L, max_width)` keeps those whose wedge has small width, which is what governs the cost of one evaluation. `scan_admissible(N, L, max_width)` ranks them by cost and returns the cheapest; it prints the five best together with the number of series terms each needs for 1000 decimal digits, which is the value to give to `N_Ell_Gamma` (13019 above, for disc −588 and L = ff). Different admissible vectors for the same L give different triples (z, τ, σ), printed as exact elements of K during the evaluation, and the same value `u`, as predicted by the conjecture.
