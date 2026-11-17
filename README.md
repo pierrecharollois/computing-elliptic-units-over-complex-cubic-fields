@@ -24,7 +24,7 @@ The examples covered are the following.
 | `cubic_field_K_cube_root_7.sage` | `β^3 = 7` | −1323 = −3³·7² | 3 | the ideal of norm 3 | norm 5 | Z/6 | §5.2 |
 | `cubic_field_K_cube_root_3.sage` | `β^3 = 3` | −243 = −3⁵ | 1 | the ideal of norm 3 | norm 5, then norm 2 | Z/2 | §5.1 |
 | `cubic_field_K_cube_root_2.sage` | `β^3 = 2` | −108 = −2²·3³ | 1 | (3) | norm 5 | Z/6, gen. (β) | §5.3 |
-| `cubic_field_K_cube_root_2_f5-2.sage` | `β^3 = 2` | −108 = −2²·3³ | 1 | (5) | norm 11 | Z/12, gen. (β) | §5.3 |
+| `cubic_field_K_cube_root_2_f5.sage` | `β^3 = 2` | −108 = −2²·3³ | 1 | (5) | norm 11 | Z/12, gen. (β) | §5.3 |
 | `setup108.gp` | `β^3 = 2` | −108 | 1 | (3) | norm 5 | Z/6, gen. (β) | §5.3 |
 | `setup23c.gp` | `β^3 - β + 1 = 0` | −23 | 1 | (5) | norm 7 | Z/4, gen. (2) | §5.4 |
 
