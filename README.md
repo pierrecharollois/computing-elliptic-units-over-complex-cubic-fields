@@ -49,11 +49,11 @@ One evaluation then takes a few lines:
 sage: L = ff
 sage: adm = scan_admissible(10, L, 3)
 sage: N_Ell_Gamma = 14000
-sage: u = EllGammaunit_aa_h(adm/q_ff, L)
+sage: u = EllGammaunit_aa_h(adm/q_ff, L, 1000)
 sage: PK = algdep_K(u, 6, certified_digits(u))
 ```
 
-`admissible_elements(N, L)` returns all admissible elements `h`in the search box of radius `N`, and `find_small_width_admissible_vectors(N, L, max_width)` keeps those whose wedge has small width, which is what governs the cost of one evaluation. `scan_admissible(N, L, max_width)` ranks them by cost and returns the cheapest; it prints the five best together with the number of series terms each needs for 1000 decimal digits, which is the value to give to `N_Ell_Gamma` (13019 above, for disc −588 and L = ff). Different admissible vectors for the same L give different triples (z, τ, σ), printed as exact elements of K during the evaluation, and the same value `u`, as predicted by the conjecture.
+`admissible_elements(N, L)` returns all admissible elements `h`in the search box of radius `N`, and `find_small_width_admissible_vectors(N, L, max_width)` keeps those whose wedge has small width, which is what governs the cost of one evaluation. `scan_admissible(N, L, max_width)` ranks them by cost and returns the cheapest; it prints the five best together with the number of series terms each needs for 1000 decimal digits, which is selected to give to `N_Ell_Gamma`.  Different admissible vectors for the same L give different triples (z, τ, σ), printed as exact elements of K during the evaluation, and the same value `u`, as predicted by the conjecture.
 
 `certified_digits(u)` returns the number of digits the truncation error bound guarantees. `algdep_Q(u, n, digits)` recognises `u` over Q, and `algdep_K(u, n, digits)` recovers the polynomial over K printed in the paper, through a `lindep` on the numbers `β^i u^j`. 
 The Galois conjugates are obtained by letting b vary:
@@ -64,7 +64,7 @@ sage: for k in range(6):
 ....:     print(EllGammaunit_aa_h(scan_admissible(10, L, 3)/q_ff, L))
 ```
 
-The working precision `prec`, 3400 bits by default, is set at the top of `BCG_cubic_git.sage`. Reaching 1000 certified digits takes from seconds to minutes per class, the run time being dominated by the width `s` of the wedge, which is the modulus of Felder's paper, and by the decay rate ρ of the series.
+The working precision `prec`, 3400 bits by default, is set at the top of `BCG_cubic.sage`. Reaching 1000 certified digits takes from seconds to minutes per class, the run time being dominated by the width `s` of the wedge, which is the modulus of Felder's paper, and by the decay rate ρ of the series.
 
 ### GP/PARI
 
